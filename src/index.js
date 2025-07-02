@@ -1,19 +1,32 @@
-console.log("Welcome to the Restaurant Page!");
-import restaurantImage from './assets/kebbab.jpg';
+import loadHome from './home';
+import loadMenu from './menu';
+import loadContact from './contact';
+import './style.css';
 
-const content = document.getElementById('content');
+function clearContent() {
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+}
 
-const image = document.createElement('img');
-image.src = restaurantImage;
-image.alt = "Our Beautiful Restaurant";
-image.style.width = "600px";
+function setActiveTab(tabFunction) {
+  clearContent();
+  const content = document.getElementById('content');
+  content.appendChild(tabFunction());
+}
 
-const heading = document.createElement('h1');
-heading.textContent = "Welcome to Chez Délice!";
+// Initial load
+document.addEventListener('DOMContentLoaded', () => {
+  setActiveTab(loadHome);
 
-const paragraph = document.createElement('p');
-paragraph.textContent = "At Chez Délice, we serve the finest dishes in a cozy atmosphere.";
+  document.getElementById('home-btn').addEventListener('click', () => {
+    setActiveTab(loadHome);
+  });
 
-content.appendChild(heading);
-content.appendChild(image);
-content.appendChild(paragraph);
+  document.getElementById('menu-btn').addEventListener('click', () => {
+    setActiveTab(loadMenu);
+  });
+
+  document.getElementById('about-btn').addEventListener('click', () => {
+    setActiveTab(loadContact);
+  });
+});
